@@ -1,20 +1,30 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Menu = ({ children }) => {
-  return { children }
+  return <div>{children}</div>
 }
 
 const MenuNav = ({ children }) => {
-  return <nav class='mt-10'>{children}</nav>
+  return <nav className='mt-10'>{children}</nav>
 }
 
 const MenuNavItem = ({ children, href, Icon }) => {
+  const router = useRouter()
+  const { pathname } = router
+  const selected = pathname === href
   return (
     <Link href={href}>
-      <a class='flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100'>
+      <a
+        className={
+          selected
+            ? 'flex items-center mt-4 py-2 px-6 bg-sky-500 hover:bg-sky-700 bg-opacity-25 text-gray-100'
+            : 'flex items-center mt-4 py-2 px-6 bg-gray-700 hover:bg-sky-700 bg-opacity-25 text-gray-100'
+        }
+      >
         {Icon && <Icon className='h-5 w-5' />}
-        <span class='mx-3'>{children}</span>
+        <span className='mx-3'>{children}</span>
       </a>
     </Link>
   )
@@ -22,10 +32,10 @@ const MenuNavItem = ({ children, href, Icon }) => {
 
 const MenuBrand = ({ children }) => {
   return (
-    <div class='flex items-center justify-center mt-8'>
-      <div class='flex items-center'>
+    <div className='flex items-center justify-center mt-8'>
+      <div className='flex items-center'>
         <svg
-          class='h-12 w-12'
+          className='h-12 w-12'
           viewBox='0 0 512 512'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
@@ -44,7 +54,9 @@ const MenuBrand = ({ children }) => {
           ></path>
         </svg>
 
-        <span class='text-white text-2xl mx-2 font-semibold'>{children}</span>
+        <span className='text-white text-2xl mx-2 font-semibold'>
+          {children}
+        </span>
       </div>
     </div>
   )

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Table = ({ children }) => {
@@ -26,10 +27,44 @@ const TableTd = ({ children }) => (
     {children}
   </td>
 )
+const TableDataName = ({ name, email, srcImage }) => {
+  return (
+    <div className='flex items-center'>
+      <div className='flex-shrink-0 h-10 w-10'>
+        <img className='h-10 w-10 rounded-full' src={srcImage} alt='' />
+      </div>
+      <div className='ml-4'>
+        <div className='text-sm leading-5 font-medium text-gray-900'>
+          {name}
+        </div>
+        <div className='text-sm leading-5 text-gray-500'>{email}</div>
+      </div>
+    </div>
+  )
+}
+const TableDataTitle = ({ title, name }) => {
+  return (
+    <>
+      <div className='text-sm leading-5 font-medium text-gray-900'>{title}</div>
+      <div className='text-sm leading-5 text-gray-500'>{name}</div>
+    </>
+  )
+}
+const TableLink = ({ children, href }) => {
+  return (
+    <Link href={href}>
+      <a className='text-indigo-600 hover:text-indigo-900'>{children}</a>
+    </Link>
+  )
+}
+
 Table.Head = TableHead
 Table.Th = TableTh
 Table.Body = TableBody
 Table.Tr = TableTr
 Table.Td = TableTd
+Table.DataName = TableDataName
+Table.DataTitle = TableDataTitle
+Table.Link = TableLink
 
 export default Table

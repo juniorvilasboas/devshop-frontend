@@ -29,15 +29,17 @@ const Layout = ({ children }) => {
               : '-translate-x-full ease-in')
           }
         >
-          <Menu.Brand>DevShop</Menu.Brand>
-          <Menu.Nav>
-            <Menu.NavItem href='/' Icon={MdHome}>
-              Home
-            </Menu.NavItem>
-            <Menu.NavItem href='/categories' Icon={MdLabel}>
-              Categorias
-            </Menu.NavItem>
-          </Menu.Nav>
+          <Menu>
+            <Menu.Brand>Devshop</Menu.Brand>
+            <Menu.Nav>
+              <Menu.NavItem href={'/'} Icon={MdHome}>
+                Home
+              </Menu.NavItem>
+              <Menu.NavItem href={'/categories'} Icon={MdLabel}>
+                Categorias
+              </Menu.NavItem>
+            </Menu.Nav>
+          </Menu>
         </div>
         <div className='flex-1 flex flex-col overflow-hidden'>
           <header className='flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600'>

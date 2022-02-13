@@ -1,10 +1,13 @@
 import React from 'react'
+import Layout from '../components/Layout'
 import '../css/styles.css'
 
 const App = ({ Component, pageProps }) => {
   return (
     <div>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </div>
   )
 }

@@ -3,9 +3,11 @@ import React from 'react'
 const Card = ({ children }) => {
   return (
     <div className='w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 xl:mt-0'>
-      <div className='flex items-center px-5 py-6 shadow-sm rounded-md bg-white'>
-        {children}
-      </div>
+      <a href='#'>
+        <div className='flex items-center px-5 py-6 shadow-sm rounded-md bg-white'>
+          {children}
+        </div>
+      </a>
     </div>
   )
 }
