@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div>
+    <>
       <div className='flex h-screen bg-gray-200'>
         <div
           className={
@@ -142,7 +142,7 @@ const Layout = ({ children }) => {
           </main>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 export default Layout

@@ -27,17 +27,19 @@ const TableTd = ({ children }) => (
     {children}
   </td>
 )
-const TableDataName = ({ name, email, srcImage }) => {
+const TableDataName = ({ name, slug, srcImage }) => {
   return (
     <div className='flex items-center'>
-      <div className='flex-shrink-0 h-10 w-10'>
-        <img className='h-10 w-10 rounded-full' src={srcImage} alt='' />
-      </div>
-      <div className='ml-4'>
+      {srcImage && (
+        <div className='flex-shrink-0 h-10 w-10'>
+          <img className='h-10 w-10 rounded-full' src={srcImage} alt='' />
+        </div>
+      )}
+      <div>
         <div className='text-sm leading-5 font-medium text-gray-900'>
           {name}
         </div>
-        <div className='text-sm leading-5 text-gray-500'>{email}</div>
+        <div className='text-sm leading-5 text-gray-500'>{slug}</div>
       </div>
     </div>
   )
@@ -50,10 +52,12 @@ const TableDataTitle = ({ title, name }) => {
     </>
   )
 }
-const TableLink = ({ children, href }) => {
+const TableLink = ({ children, href, ...rest }) => {
   return (
     <Link href={href}>
-      <a className='text-indigo-600 hover:text-indigo-900'>{children}</a>
+      <a className='text-indigo-600 hover:text-indigo-900' {...rest}>
+        {children}
+      </a>
     </Link>
   )
 }
