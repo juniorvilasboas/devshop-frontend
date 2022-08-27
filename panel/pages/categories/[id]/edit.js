@@ -23,16 +23,15 @@ const UPDATE_CATEGORY = `
 
 const Edit = () => {
   const router = useRouter()
-  const [updatedData, updateCategory] = useMutation(UPDATE_CATEGORY)
   const { data } = useQuery(`
-  query{
-    getCategoryById(id: "${router.query.id}"){
-      name
-      slug
+    query{
+      getCategoryById(id:"${router.query.id}"){
+        name
+        slug
+      }
     }
-  }
   `)
-
+  const [updatedData, updateCategory] = useMutation(UPDATE_CATEGORY)
   const form = useFormik({
     initialValues: {
       name: '',
@@ -43,18 +42,18 @@ const Edit = () => {
         ...values,
         id: router.query.id
       }
-      await updateCategory(values)
+
+      const data = await updateCategory(category)
       router.push('/categories')
     }
   })
-
+  // passou os dados pro form
   useEffect(() => {
     if (data && data.getCategoryById) {
       form.setFieldValue('name', data.getCategoryById.name)
       form.setFieldValue('slug', data.getCategoryById.slug)
     }
-  })
-
+  }, [data])
   return (
     <div>
       <Title>Editar categoria</Title>
@@ -95,5 +94,4 @@ const Edit = () => {
     </div>
   )
 }
-
 export default Edit
