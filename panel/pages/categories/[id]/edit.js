@@ -3,6 +3,10 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useMutation, useQuery } from '../../../lib/graphql'
 
+import Button from '../../../components/Button'
+import Input from '../../../components/Input'
+import Title from '../../../components/Seo/title'
+
 const UPDATE_CATEGORY = `
     mutation updateCategory($id: String!, $name: String!, $slug: String!) {
       updateCategory (input: {
@@ -21,12 +25,12 @@ const Edit = () => {
   const router = useRouter()
   const [updatedData, updateCategory] = useMutation(UPDATE_CATEGORY)
   const { data } = useQuery(`
-    query{
-      getCategoryById(id: "${router.query.id}"){
-        name
-        slug
-      }
+  query{
+    getCategoryById(id: "${router.query.id}"){
+      name
+      slug
     }
+  }
   `)
 
   const form = useFormik({

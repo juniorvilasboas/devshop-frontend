@@ -23,7 +23,7 @@ const CardData = ({ children }) => {
 }
 
 const CardTitle = ({ children }) => {
-  return <h4 class='text-2xl font-semibold text-gray-700'>{children}</h4>
+  return <h4 className='text-2xl font-semibold text-gray-700'>{children}</h4>
 }
 
 const CardDescription = ({ children }) => {

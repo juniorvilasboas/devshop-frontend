@@ -55,7 +55,7 @@ const Index = () => {
                       <Table.DataName name={item.name} slug={item.slug} />
                     </Table.Td>
                     <Table.Td>
-                      <Table.Link href={`/cateogries/${item.id}/edit`}>
+                      <Table.Link href={`/categories/${item.id}/edit`}>
                         Edit
                       </Table.Link>{' '}
                       |{' '}
