@@ -6,56 +6,58 @@ import Button from '../../components/Button'
 import Title from '../../components/Seo/title'
 import Table from '../../components/Table'
 
-const GET_ALL_CATEGORY = `
+const GET_ALL_PRODUCTS = `
     query {
-      getAllCategories {
+      getAllProducts {
         id
         name
+        description
         slug
       }
     }
   `
 
-const DELETE_CATEGORY = `
-  mutation deleteCategory($id: String!) {
-    deleteCategory (id: $id) 
+const DELETE_PRODUCT = `
+  mutation deleteProduct($id: String!) {
+    deleteProduct (id: $id) 
   }
 `
 
 const Index = () => {
-  const { data, mutate } = useQuery(GET_ALL_CATEGORY)
-  const [deleteData, deleteCategory] = useMutation(DELETE_CATEGORY)
+  const { data, mutate } = useQuery(GET_ALL_PRODUCTS)
+  const [deleteData, deleteProduct] = useMutation(DELETE_PRODUCT)
   const remove = id => async () => {
-    await deleteCategory({ id })
+    await deleteProduct({ id })
     mutate()
   }
   return (
     <div>
-      <Title>Gerenciar categorias</Title>
-      <Button.Link href={'/categories/create'}>
-        Criar nova categoria
-      </Button.Link>
-      {data && data.getAllCategories && data.getAllCategories.length === 0 && (
-        <Alert message={'Nunhuma categoria criada.'} />
+      <Title>Gerenciar produtos</Title>
+      <Button.Link href={'/products/create'}>Criar novo produto</Button.Link>
+      {data && data.getAllProducts && data.getAllProducts.length === 0 && (
+        <Alert message={'Nunhum produto criado.'} />
       )}
-      {data && data.getAllCategories && data.getAllCategories.length > 0 && (
+      {data && data.getAllProducts && data.getAllProducts.length > 0 && (
         <div className='mt-8'>
           <Table>
             <Table.Head>
-              <Table.Th>Categoria</Table.Th>
+              <Table.Th>Produtos</Table.Th>
               <Table.Th></Table.Th>
             </Table.Head>
 
             <Table.Body>
               {data &&
-                data.getAllCategories &&
-                data.getAllCategories.map(item => (
+                data.getAllProducts &&
+                data.getAllProducts.map(item => (
                   <Table.Tr key={item.id}>
                     <Table.Td>
-                      <Table.DataName name={item.name} slug={item.slug} />
+                      <Table.DataName
+                        name={item.name}
+                        slug={item.description}
+                      />
                     </Table.Td>
                     <Table.Td>
-                      <Table.Link href={`/categories/${item.id}/edit`}>
+                      <Table.Link href={`/products/${item.id}/edit`}>
                         Edit
                       </Table.Link>{' '}
                       |{' '}

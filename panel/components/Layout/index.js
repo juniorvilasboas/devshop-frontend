@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MdHome, MdLabel } from 'react-icons/md'
+import { MdHome, MdLabel, MdProductionQuantityLimits } from 'react-icons/md'
 import Menu from '../Menu'
 
 const Layout = ({ children }) => {
@@ -40,6 +40,12 @@ const Layout = ({ children }) => {
               </Menu.NavItem>
               <Menu.NavItem href={'/categories'} Icon={MdLabel}>
                 Categorias
+              </Menu.NavItem>
+              <Menu.NavItem
+                href={'/products'}
+                Icon={MdProductionQuantityLimits}
+              >
+                Produtos
               </Menu.NavItem>
             </Menu.Nav>
           </Menu>

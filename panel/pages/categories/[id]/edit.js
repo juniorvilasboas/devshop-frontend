@@ -58,6 +58,9 @@ const Edit = () => {
     <div>
       <Title>Editar categoria</Title>
       <div className='mt-8'></div>
+      <div>
+        <Button.LinkOutline href='/categories'>Cancelar</Button.LinkOutline>
+      </div>
       <div className='flex flex-col mt-8'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
           <div className='align-middle inline-block min-w-full shadow bg-white p-12 overflow-hidden sm:rounded-lg border-b border-gray-200'>
