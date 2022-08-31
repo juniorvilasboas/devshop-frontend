@@ -63,7 +63,9 @@ const Edit = () => {
       }
 
       const data = await updateProduct(category)
-      router.push('/products')
+      if (data && !data.errors) {
+        router.push('/products')
+      }
     }
   })
   // passou os dados pro form

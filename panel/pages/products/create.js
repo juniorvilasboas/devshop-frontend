@@ -46,8 +46,10 @@ const Index = () => {
       category: ''
     },
     onSubmit: async values => {
-      await createProduct(values)
-      router.push('/products')
+      const data = await createProduct(values)
+      if (data && !data.errors) {
+        router.push('/products')
+      }
     }
   })
 
@@ -109,7 +111,7 @@ const Index = () => {
 
                 <Select
                   label='Categoria do produto'
-                  placeholder=''
+                  placeholder='Escolha a categoria do produto'
                   value={form.values.category}
                   onChange={form.handleChange}
                   name='category'

@@ -44,7 +44,9 @@ const Edit = () => {
       }
 
       const data = await updateCategory(category)
-      router.push('/categories')
+      if (data && !data.errors) {
+        router.push('/categories')
+      }
     }
   })
   // passou os dados pro form

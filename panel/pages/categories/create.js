@@ -29,8 +29,10 @@ const createCategories = () => {
       slug: ''
     },
     onSubmit: async values => {
-      await createCategory(values)
-      router.push('/categories')
+      const data = await createCategory(values)
+      if (data && !data.errors) {
+        router.push('/categories')
+      }
     }
   })
 

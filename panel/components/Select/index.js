@@ -25,6 +25,7 @@ const Select = ({
         onChange={onChange}
         name={name}
       >
+        <option></option>
         {options.map(opt => {
           return (
             <option key={opt.id} value={opt.id} checked={value === opt.id}>
