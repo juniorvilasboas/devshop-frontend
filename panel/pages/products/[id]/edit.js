@@ -90,6 +90,7 @@ const Edit = () => {
 
   return (
     <div>
+      <pre>{JSON.stringify(form.values.category, null, 2)}</pre>
       <Title>Editar categoria</Title>
       <div className='mt-8'></div>
       <div>
@@ -140,9 +141,10 @@ const Edit = () => {
                   value={form.values.category}
                   onChange={form.handleChange}
                   name='category'
+                  initial={{ id: '', label: 'Selecione...' }}
+                  options={options}
                   helpText=''
                   errorMessage={form.errors.category}
-                  options={options}
                 />
               </div>
               <Button>Salvar categoria</Button>
