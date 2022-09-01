@@ -1,7 +1,8 @@
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useMutation } from '../../lib/graphql'
+import * as Yup from 'yup'
+import { fetcher, useMutation } from '../../lib/graphql'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
@@ -20,6 +21,36 @@ const CREATE_CATEGORY = `
     }
   `
 
+const CategoryShema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Por favor, informe pelo menos um nome com 3 caracteres')
+    .required('Por favor, informe um nome'),
+  slug: Yup.string()
+    .min(3, 'Por favor, informe pelo menos um slug com 3 caracteres')
+    .required('Por favor, informe um slug')
+    .test(
+      'is-unique',
+      'Por favor, utilize outro slug. Este ja está em uso.',
+      async value => {
+        const ret = await fetcher(
+          JSON.stringify({
+            query: `
+              query{
+                getCategoryBySlug(slug: "${value}"){
+                  id
+                }
+              }
+            `
+          })
+        )
+        if (ret.errors) {
+          return true
+        }
+        return false
+      }
+    )
+})
+
 const createCategories = () => {
   const router = useRouter()
   const [data, createCategory] = useMutation(CREATE_CATEGORY)
@@ -28,6 +59,7 @@ const createCategories = () => {
       name: '',
       slug: ''
     },
+    validationSchema: CategoryShema,
     onSubmit: async values => {
       const data = await createCategory(values)
       if (data && !data.errors) {
@@ -41,7 +73,7 @@ const createCategories = () => {
       <Title>Criar nova categoria</Title>
       <div className='mt-8'></div>
       <div>
-        <Button.LinkOutline href='/categories'>Voltar</Button.LinkOutline>
+        <Button.LinkOutline href='/categories'>Cancelar</Button.LinkOutline>
       </div>
       <div className='flex flex-col mt-8'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>

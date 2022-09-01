@@ -1,11 +1,14 @@
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useMutation, useQuery } from '../../../lib/graphql'
+import * as Yup from 'yup'
+import { fetcher, useMutation, useQuery } from '../../../lib/graphql'
 
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
 import Title from '../../../components/Seo/title'
+
+let id = ''
 
 const UPDATE_CATEGORY = `
     mutation updateCategory($id: String!, $name: String!, $slug: String!) {
@@ -21,8 +24,43 @@ const UPDATE_CATEGORY = `
     }
   `
 
+const CategoryShema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Por favor, informe pelo menos um nome com 3 caracteres')
+    .required('Por favor, informe um nome'),
+  slug: Yup.string()
+    .min(3, 'Por favor, informe pelo menos um slug com 3 caracteres')
+    .required('Por favor, informe um slug')
+    .test(
+      'is-unique',
+      'Por favor, utilize outro slug. Este ja está em uso.',
+      async value => {
+        const ret = await fetcher(
+          JSON.stringify({
+            query: `
+                query{
+                  getCategoryBySlug(slug: "${value}"){
+                    id
+                  }
+                }
+              `
+          })
+        )
+        if (ret.errors) {
+          return true
+        }
+
+        if (ret.data.getCategoryBySlug.id === id) {
+          return true
+        }
+        return false
+      }
+    )
+})
+
 const Edit = () => {
   const router = useRouter()
+  id = router.query.id
   const { data } = useQuery(`
     query{
       getCategoryById(id:"${router.query.id}"){
@@ -37,6 +75,7 @@ const Edit = () => {
       name: '',
       slug: ''
     },
+    validationSchema: CategoryShema,
     onSubmit: async values => {
       const category = {
         ...values,
@@ -44,6 +83,7 @@ const Edit = () => {
       }
 
       const data = await updateCategory(category)
+      console.log('data', data, 'category', category)
       if (data && !data.errors) {
         router.push('/categories')
       }
